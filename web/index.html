@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JACK 弱电调试宝</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+<header><div><h1>JACK 弱电调试宝</h1><p>Windows 免安装 · 浏览器界面 · 弱电现场调试</p></div><span class="pill">V1.0</span></header>
+<main>
+<section class="card"><h2>当前电脑网络</h2><div id="net" class="muted">正在读取...</div></section>
+<section class="grid">
+<div class="card"><h2>Ping / 单设备诊断</h2><div class="row"><input id="host" placeholder="192.168.1.64"><button onclick="doPing()">Ping</button><button onclick="doHost()">完整诊断</button></div><pre id="single">输入内网 IP 后开始。</pre></div>
+<div class="card"><h2>ONVIF 搜索</h2><p class="muted">使用 WS-Discovery 搜索局域网 ONVIF 摄像机/NVR。</p><button onclick="onvif()">搜索 ONVIF</button><pre id="onvifOut">尚未搜索。</pre></div>
+</section>
+<section class="card"><h2>局域网扫描</h2><div class="row"><input id="subnet" placeholder="192.168.1.0/24"><button onclick="scan()">扫描 /24</button><button onclick="exportCsv()">导出 CSV</button></div><p class="muted">扫描仅限 RFC1918 内网。在线判断结合 ICMP 与 ARP；再进行常见弱电端口探测和 HTTP 特征识别。</p><div class="tableWrap"><table><thead><tr><th>IP</th><th>主机名</th><th>MAC</th><th>品牌/类型</th><th>开放端口</th><th>快捷入口</th></tr></thead><tbody id="devices"></tbody></table></div></section>
+<section class="grid">
+<div class="card"><h2>RTSP 地址助手</h2><div class="row"><input id="rtspIp" placeholder="设备IP"><input id="rtspUser" placeholder="用户名"><input id="rtspPass" placeholder="密码"></div><div class="row"><select id="brand"><option value="hik">海康/部分OEM</option><option value="dahua">大华/部分OEM</option><option value="generic">通用ONVIF/RTSP</option></select><input id="channel" value="1" placeholder="通道"></div><button onclick="makeRtsp()">生成</button><pre id="rtspOut"></pre></div>
+<div class="card"><h2>现场调试建议</h2><ul><li>先看本机 IP / 掩码 / 网关，再判断设备是否同网段。</li><li>能 Ping 不代表 Web、RTSP 或厂商服务正常。</li><li>554 常见于 RTSP；8000 常见于海康 SDK；37777 常见于大华；34567 常见于雄迈系。</li><li>品牌识别采用特征推测，OEM/贴牌设备以实际登录页和 ONVIF 信息为准。</li></ul></div>
+</section><footer>仅用于你有权限管理和调试的局域网设备。</footer></main><script src="/app.js"></script></body></html>
